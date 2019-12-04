@@ -19,6 +19,7 @@ import com.encentral.test_project.commons.exceptions.ResourceNotFound;
 import com.encentral.test_project.entities.JpaCar;
 import com.encentral.test_project.entities.JpaDriver;
 import com.encentral.test_project.user_management.api.CarAlreadyInUseException;
+import com.encentral.test_project.user_management.api.CarNotInUseException;
 import com.encentral.test_project.user_management.api.CarService;
 import com.encentral.test_project.user_management.api.DriverService;
 
@@ -82,6 +83,20 @@ public class DefaultDriverService implements DriverService
     	driver.setCar(car);
     	return driver;
     }
+    
+    @Override
+    public JpaDriver unAssignCar(String driverId, String carId) throws ResourceNotFound, CarNotInUseException {
+    	
+    	JpaDriver driver = find(driverId);
+    	JpaCar car = carService.find(carId);
+    	
+    	if (!car.equals(driver.getCar())) {
+    		throw new CarNotInUseException("the car "+ carId +" is not assigned to driver " + driver.getDriverId());
+    	}
+    	
+    	driver.setCar(null);
+    	return driver;
+    }
 
     @Override
     public List<JpaDriver> findDriver(String username, String onlineStatus, String licensePlate, Integer rating) {
@@ -95,16 +110,14 @@ public class DefaultDriverService implements DriverService
     	}
     	if (StringUtils.isNotBlank(onlineStatus)) {
     		params.add(onlineStatus);
-    		query += " and d.onlineStatus = ? " + + params.size();
+    		query += " and d.onlineStatus = ?" + params.size();
     	}
     	
-    	//search on username until license plate is added
     	if (StringUtils.isNotBlank(licensePlate)) {
     		params.add(licensePlate);
-    		query += " and (d.car is not null and d.car.licensePlate = ?"+params.size() +")";
+    		query += " and (d.car is not null and d.car.licensePlate = ?" + params.size() + ")";
     	}
     	
-    	//search on password until rating is added
     	if (rating != null) {
     		params.add(rating);
     		query += " and (d.car is not null and d.car.rating = ?"+ params.size()+ ")";

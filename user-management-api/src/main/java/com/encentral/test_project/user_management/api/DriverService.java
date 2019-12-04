@@ -8,36 +8,42 @@ package com.encentral.test_project.user_management.api;
 import java.util.List;
 
 import com.encentral.test_project.commons.exceptions.ResourceNotFound;
-import com.encentral.test_project.entities.JpaCar;
 import com.encentral.test_project.entities.JpaDriver;
-
-import play.twirl.api.Content;
 
 /**
  *
  * @author James Akinniranye
  */
-public interface DriverService 
-{
-    
-    JpaDriver find(String driverId) throws ResourceNotFound;
+public interface DriverService {
 
-    JpaDriver create(JpaDriver driverDO) ;
+	JpaDriver find(String driverId) throws ResourceNotFound;
 
-    void delete(String driverId) throws ResourceNotFound;
+	JpaDriver create(JpaDriver driverDO);
 
-    /**
-     * Assigns a car to a driver.
-     * 
-     * @param driverId
-     * @param carId
-     * @return
-     * @throws ResourceNotFound 
-     * @throws CarAlreadyInUseException 
-     */
+	void delete(String driverId) throws ResourceNotFound;
+
+	/**
+	 * Assigns a car to a driver.
+	 * 
+	 * @param driverId
+	 * @param carId
+	 * @return
+	 * @throws ResourceNotFound
+	 * @throws CarAlreadyInUseException
+	 */
 	JpaDriver assignCar(String driverId, String carId) throws ResourceNotFound, CarAlreadyInUseException;
-	
-	
+
+	/**
+	 * Un-assign a car
+	 * 
+	 * @param driverId
+	 * @param carId
+	 * @return
+	 * @throws ResourceNotFound
+	 * @throws CarNotInUseException
+	 */
+	JpaDriver unAssignCar(String driverId, String carId) throws ResourceNotFound, CarNotInUseException;
+
 	/**
 	 * Finds all drivers. Only for test purpose.
 	 * 
@@ -45,7 +51,6 @@ public interface DriverService
 	 */
 	List<JpaDriver> findAll();
 
-	
 	/**
 	 * Finds driver by matching properties.
 	 * 
@@ -55,6 +60,6 @@ public interface DriverService
 	 * @param rating
 	 * @return
 	 */
-	List<JpaDriver>  findDriver(String username, String online_status, String license_plate, Integer rating);
+	List<JpaDriver> findDriver(String username, String online_status, String license_plate, Integer rating);
 
 }

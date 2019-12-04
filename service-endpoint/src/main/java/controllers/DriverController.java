@@ -21,6 +21,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import com.encentral.test_project.user_management.api.CarAlreadyInUseException;
+import com.encentral.test_project.user_management.api.CarNotInUseException;
 import com.encentral.test_project.user_management.api.DriverService;
 import javax.inject.Inject;
 import play.data.Form;
@@ -68,6 +69,31 @@ public class DriverController extends Controller
             return notFound(ex.getMessage());
             
         } catch (CarAlreadyInUseException e) {
+        	
+			return badRequest(e.getMessage());
+		}
+    }
+
+    
+    @ApiOperation(value = "release an assigned Car to a Driver", notes = "", httpMethod = "GET")
+    @ApiResponses
+	(
+            value = {
+						@ApiResponse(code = 200, message = "Done", response = DriverDTO.class)
+					}
+    )
+    public Result unAssignCar(String driverId, String carId) 
+	{
+        try 
+		{
+            return ok(Json.toJson(DriverMapper.jpaDriverToDriverDTO(driverService.unAssignCar(driverId, carId))));
+            
+        } 
+		catch (ResourceNotFound ex) 
+		{
+            return notFound(ex.getMessage());
+            
+        } catch (CarNotInUseException e) {
         	
 			return badRequest(e.getMessage());
 		}

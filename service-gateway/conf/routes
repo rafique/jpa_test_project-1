@@ -7,6 +7,7 @@ GET        /drivers/:driverId/               	controllers.DriverController.getDr
 DELETE     /drivers/:driverId/               	controllers.DriverController.deleteDriver( driverId : String)
 POST       /drivers/                         	controllers.DriverController.createDriver()
 GET       /drivers/:driverId/assign/:carId     controllers.DriverController.assignCar(driverId: String, carId: String)
+GET       /drivers/:driverId/unassign/:carId     controllers.DriverController.unAssignCar(driverId: String, carId: String)
 
 
 # Car
