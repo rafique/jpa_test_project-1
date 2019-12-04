@@ -24,6 +24,9 @@ import com.encentral.test_project.user_management.api.CarAlreadyInUseException;
 import com.encentral.test_project.user_management.api.CarNotInUseException;
 import com.encentral.test_project.user_management.api.DriverService;
 import javax.inject.Inject;
+
+import org.apache.commons.lang3.StringUtils;
+
 import play.data.Form;
 import play.data.FormFactory;
 import play.db.jpa.Transactional;
@@ -99,23 +102,35 @@ public class DriverController extends Controller
 		}
     }
     
-    @ApiOperation(value = "Find Drivers", notes = "Find Driver endpoint", httpMethod = "GET")
+    @ApiOperation(value = "Find Drivers", notes = "Find Driver endpoint", produces = "application/json")
     @ApiResponses
 	(
             value = {
 						@ApiResponse(code = 200, message = "Done", response = CarDTO.class)
 					}
     )
-    
-    public Result findDriver(@ApiParam(name = "username", type="query", required = false) String username, String online_status, String license_plate, String rating) 
+    @ApiImplicitParams({
+    	@ApiImplicitParam(name = "username", dataType = "string", paramType = "query", required = false), 
+    	@ApiImplicitParam(name = "online_status", dataType = "string", paramType = "query", required = false), 
+    	@ApiImplicitParam(name = "rating", dataType = "integer", paramType = "query", required = false), 
+    	@ApiImplicitParam(name = "license_plate", dataType = "string", paramType = "query", required = false)})
+    public Result findDriver() 
 	{
     	 Integer car_rating = null;
     	 try {
-    		 car_rating = Integer.parseInt(rating);
+    		String rating = request().getQueryString("rating");
+    		if (StringUtils.isNotBlank(rating))
+    			car_rating = Integer.parseInt(rating);
     	 }
-    	 catch(Exception e) {
-    		 //okay
+    	 catch(NumberFormatException e) {
+    		  return badRequest("rating must be integer");
     	 }
+    	 
+    	 String username = request().getQueryString("username");
+    	 String online_status = request().getQueryString("online_status");
+    	 String license_plate = request().getQueryString("license_plate");
+    	 
+    	 
          return ok(Json.toJson(driverService.findDriver(username, online_status, license_plate, car_rating).stream().map(DriverMapper::jpaDriverToDriverDTO)));
     }
     

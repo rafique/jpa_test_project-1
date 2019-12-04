@@ -38,7 +38,7 @@ libraryDependencies ++= Seq(
 								"org.eclipse.persistence" % "eclipselink" % "2.6.2",
 								"io.vavr" % "vavr" % "0.9.2",
 								
-								"io.swagger" %% "swagger-play2" % "1.6.0",
+								"io.swagger" %% "swagger-play2" % "1.6.1",
 								"io.swagger"         % "swagger-parser"             % "1.0.20",
 								"io.swagger" % "swagger-annotations" % "1.5.9",
 								"org.flywaydb" %% "flyway-play" % "5.0.0",
