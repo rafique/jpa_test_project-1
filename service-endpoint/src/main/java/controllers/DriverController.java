@@ -81,7 +81,7 @@ public class DriverController extends Controller
 					}
     )
     
-    public Result findDriver(@ApiParam(required = false) String username, String online_status, String license_plate, Integer rating) 
+    public Result findDriver(@ApiParam(name = "username", type="query", required = false) String username, String online_status, String license_plate, Integer rating) 
 	{
            return ok(Json.toJson(driverService.findDriver(username, online_status, license_plate, rating).stream().map(DriverMapper::jpaDriverToDriverDTO)));
     }

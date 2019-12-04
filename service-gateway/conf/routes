@@ -2,7 +2,7 @@
 
 
 # Driver
-GET        /drivers/                         	controllers.DriverController.findDriver(username:String, online_status:String = null, license_plate: String = null, rating:Integer = null)
+GET        /drivers/                         	controllers.DriverController.findDriver(username:String, online_status:String, license_plate: String, rating:Integer)
 GET        /drivers/:driverId/               	controllers.DriverController.getDriver( driverId : String)
 DELETE     /drivers/:driverId/               	controllers.DriverController.deleteDriver( driverId : String)
 POST       /drivers/                         	controllers.DriverController.createDriver()

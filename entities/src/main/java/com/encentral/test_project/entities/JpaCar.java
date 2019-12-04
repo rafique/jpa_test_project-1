@@ -13,6 +13,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,6 +33,7 @@ import com.encentral.test_project.util.EngineType;
 @NamedQueries({ @NamedQuery(name = "JpaCar.findAll", query = "SELECT j FROM JpaCar j") })
 public class JpaCar implements Serializable {
 
+	
 	@Id
 	@Basic(optional = false)
 	@NotNull
@@ -39,37 +42,35 @@ public class JpaCar implements Serializable {
 	private String carId;
 
 	@Column(nullable = false, name = "license_plate")
-    @Size(min = 1, max = 25)
-    @NotNull(message = "License plate can not be null!")
-    private String licensePlate;
+	@Size(min = 1, max = 25)
+	@NotNull(message = "License plate can not be null!")
+	private String licensePlate;
 
 	@Column(nullable = false, name = "seat_count")
-    @NotNull(message = "Seat count can not be null!")
-    private int seatCount;
+	@NotNull(message = "Seat count can not be null!")
+	private int seatCount;
 
 	@Column(nullable = false, name = "convertible")
-    @NotNull(message = "convertible field can not be null!")
-    private boolean convertible;
+	@NotNull(message = "convertible field can not be null!")
+	private boolean convertible;
 
 	@Column(nullable = true, name = "rating")
-    private int rating;
+	private int rating;
 
-	
-	
-	/* @Column(nullable = true, name = "engine_type")
-    private EngineType engineType; */
-	
+	@Column(nullable = true, name = "engine_type")
+	@Enumerated(EnumType.STRING)
+	private EngineType engineType;
 
 	@Column(nullable = true, name = "manufacturer")
-    private String manufacturer;
-	
+	private String manufacturer;
+
 	@OneToOne(mappedBy = "car")
 	private JpaDriver driver;
-	
+
 	public JpaDriver getDriver() {
 		return driver;
 	}
-	
+
 	public void setDriver(JpaDriver driver) {
 		this.driver = driver;
 	}
@@ -82,65 +83,52 @@ public class JpaCar implements Serializable {
 		this.carId = carId;
 	}
 
-	public String getLicensePlate() 
-	{
-        return licensePlate;
-    }
+	public String getLicensePlate() {
+		return licensePlate;
+	}
 
-    public void setLicensePlate(String licensePlate) 
-	{
-        this.licensePlate = licensePlate;
-    }
+	public void setLicensePlate(String licensePlate) {
+		this.licensePlate = licensePlate;
+	}
 
-	public int getSeatCount() 
-	{
-        return seatCount;
-    }
+	public int getSeatCount() {
+		return seatCount;
+	}
 
-    public void setSeatCount(int seatCount) 
-	{
-        this.seatCount = seatCount;
-    }
+	public void setSeatCount(int seatCount) {
+		this.seatCount = seatCount;
+	}
 
-	public boolean getConvertible() 
-	{
-        return convertible;
-    }
-	
-	public void setConvertible(boolean convertible) 
-	{
-        this.convertible = convertible;
-    }
+	public boolean getConvertible() {
+		return convertible;
+	}
 
-	public int getRating() 
-	{
-        return rating;
-    }
+	public void setConvertible(boolean convertible) {
+		this.convertible = convertible;
+	}
 
-    public void setRating(int rating) 
-	{
-        this.rating = rating;
-    }
+	public int getRating() {
+		return rating;
+	}
 
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
 
-	/* public EngineType getEngineType() 
-	{
-        return engineType;
-    }
+	public EngineType getEngineType() {
+		return engineType;
+	}
 
-    public void setEngineType(EngineType engineType) 
-	{
-        this.engineType = engineType;
-    } */
+	public void setEngineType(EngineType engineType) {
+		this.engineType = engineType;
+	}
 
-	public String getManufacturer() 
-	{
-        return manufacturer;
-    }
+	public String getManufacturer() {
+		return manufacturer;
+	}
 
-    public void setManufacturer(String manufacturer) 
-	{
-        this.manufacturer = manufacturer;
-    }
-	
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
 }

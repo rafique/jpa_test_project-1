@@ -1,12 +1,10 @@
 package com.encentral.test_project.commons.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import com.encentral.test_project.util.EngineType;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CarDTO 
@@ -26,7 +24,7 @@ public class CarDTO
 
     private int rating;
 	
-	/* private EngineType engineType; */
+	private EngineType engineType;
 	
 	private String manufacturer;
 
@@ -80,7 +78,7 @@ public class CarDTO
         this.rating = rating;
     }
 
-    /* public EngineType getEngineType() 
+    public EngineType getEngineType() 
 	{
         return engineType;
     }
@@ -88,7 +86,7 @@ public class CarDTO
     public void setEngineType(EngineType engineType) 
 	{
         this.engineType = engineType;
-    } */
+    }
 	
 	public String getManufacturer() 
 	{

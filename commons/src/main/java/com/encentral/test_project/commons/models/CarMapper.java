@@ -22,7 +22,7 @@ public class CarMapper
         dTO.setSeatCount(jpaCar.getSeatCount());
         dTO.setConvertible(jpaCar.getConvertible());
         dTO.setRating(jpaCar.getRating());
-		/* dTO.setEngineType(jpaCar.getEngineType()); */
+		dTO.setEngineType(jpaCar.getEngineType());
 		dTO.setManufacturer(jpaCar.getManufacturer());
         return dTO;
     }
@@ -35,7 +35,7 @@ public class CarMapper
         jpaCar.setSeatCount(dTO.getSeatCount());
         jpaCar.setConvertible(dTO.getConvertible());
         jpaCar.setRating(dTO.getRating());
-        /* jpaCar.setEngineType(dTO.getEngineType()); */
+        jpaCar.setEngineType(dTO.getEngineType());
 		jpaCar.setManufacturer(dTO.getManufacturer());
         return jpaCar;
     }

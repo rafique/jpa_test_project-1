@@ -13,6 +13,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.encentral.test_project.commons.exceptions.ResourceNotFound;
 import com.encentral.test_project.entities.JpaCar;
 import com.encentral.test_project.entities.JpaDriver;
@@ -82,30 +84,30 @@ public class DefaultDriverService implements DriverService
     }
 
     @Override
-    public List<JpaDriver> findDriver(String username, String onlineStatus, String license_plate, Integer rating) {
+    public List<JpaDriver> findDriver(String username, String onlineStatus, String licensePlate, Integer rating) {
     	
     	String query = "SELECT d FROM JpaDriver d where 1=1";
     	List<Object> params = new LinkedList<>();
     	
-    	if (username != null) {
+    	if (StringUtils.isNotBlank(username)) {
     		params.add(username);
     		query += " and d.username = ?" + params.size();
     	}
-    	if (onlineStatus != null) {
+    	if (StringUtils.isNotBlank(onlineStatus)) {
     		params.add(onlineStatus);
     		query += " and d.onlineStatus = ? " + + params.size();
     	}
     	
     	//search on username until license plate is added
-    	if (license_plate != null) {
-    		params.add(license_plate);
-    		query += " and (d.car is not null and d.car.username = ?"+params.size() +")";
+    	if (StringUtils.isNotBlank(licensePlate)) {
+    		params.add(licensePlate);
+    		query += " and (d.car is not null and d.car.licensePlate = ?"+params.size() +")";
     	}
     	
     	//search on password until rating is added
     	if (rating != null) {
     		params.add(rating);
-    		query += " and (d.car is not null and d.car.password = ?"+ params.size()+ ")";
+    		query += " and (d.car is not null and d.car.rating = ?"+ params.size()+ ")";
     	}
     	
 		TypedQuery<JpaDriver> createQuery = jPAApi.em().createQuery(query, JpaDriver.class);
