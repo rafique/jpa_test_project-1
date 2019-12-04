@@ -2,12 +2,12 @@
 
 
 # Driver
-GET        /drivers/                         	controllers.DriverController.findDriver(username:String, online_status:String, license_plate: String, rating:Integer)
+GET        /drivers/                         	controllers.DriverController.findDriver(username:String, online_status:String, license_plate:String, rating:String)
 GET        /drivers/:driverId/               	controllers.DriverController.getDriver( driverId : String)
 DELETE     /drivers/:driverId/               	controllers.DriverController.deleteDriver( driverId : String)
 POST       /drivers/                         	controllers.DriverController.createDriver()
-GET       /drivers/:driverId/assign/:carId     controllers.DriverController.assignCar(driverId: String, carId: String)
-GET       /drivers/:driverId/unassign/:carId     controllers.DriverController.unAssignCar(driverId: String, carId: String)
+GET       /drivers/:driverId/assign/:carId     	controllers.DriverController.assignCar(driverId: String, carId: String)
+GET       /drivers/:driverId/unassign/:carId    controllers.DriverController.unAssignCar(driverId: String, carId: String)
 
 
 # Car
